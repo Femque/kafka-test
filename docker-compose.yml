@@ -9,8 +9,8 @@ services:
     ports:
       - 22181:2181
     volumes:
-      - ./pub-technology/zookeeper/data:/data
-      - ./pub-technology/zookeeper/datalog:/datalog
+      - ./kafka/zookeeper/data:/data
+      - ./kafka/zookeeper/datalog:/datalog
 
   kafka-server-1:
     image: confluentinc/cp-kafka:latest
@@ -26,7 +26,8 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     volumes:
-      - ./pub-technology/kafka1/data:/var/lib/kafka/data
+      - ./kafka/kafka1/data:/var/lib/kafka/data
+
   kafka-server-2:
     image: confluentinc/cp-kafka:latest
     depends_on:
@@ -41,7 +42,8 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     volumes:
-      - ./pub-technology/kafka2/data:/var/lib/kafka/data
+      - ./kafka/kafka2/data:/var/lib/kafka/data
+
   manager:
     image: sheepkiller/kafka-manager
     ports:
@@ -50,3 +52,10 @@ services:
       ZK_HOSTS: zookeeper:2181
     depends_on:
       - zookeeper
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongo/data:/data/db
