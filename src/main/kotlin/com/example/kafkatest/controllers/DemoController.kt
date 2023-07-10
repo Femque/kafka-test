@@ -4,6 +4,7 @@ import com.example.kafkatest.requests.Product
 import com.example.kafkatest.requests.ProductMessage
 import com.example.kafkatest.services.ProductService
 import org.slf4j.LoggerFactory
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.*
@@ -26,7 +27,8 @@ class DemoController(private val productService: ProductService) {
         log.info("[DemoController]: add new product = $product")
         productService.sendMessage(ProductMessage(product, "add"))
 
-        return ResponseEntity.ok(product)
+        val savedProduct = productService.saveProduct(product)
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedProduct)
     }
 
     @DeleteMapping("/product/{id}")
