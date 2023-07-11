@@ -14,7 +14,7 @@ import java.io.Serializable
 @Configuration
 class KafkaProducerConfig {
 
-    @Value("\${kafka.bootstrapAddress}")
+    @Value("\${spring.kafka.bootstrap-servers}")
     private lateinit var bootstrapAddress: String
 
     @Bean

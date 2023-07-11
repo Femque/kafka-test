@@ -1,4 +1,4 @@
-package com.example.kafkatest.listeners
+package com.example.kafkatest.kafkaconfig.listeners
 
 import com.example.kafkatest.requests.ProductMessage
 import org.slf4j.LoggerFactory

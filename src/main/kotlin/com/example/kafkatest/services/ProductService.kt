@@ -1,15 +1,14 @@
 package com.example.kafkatest.services
 
-import com.example.kafkatest.producers.ProductProducer
+import com.example.kafkatest.kafkaconfig.producers.ProductProducer
 import com.example.kafkatest.repository.ProductRepository
 import com.example.kafkatest.requests.Product
 import com.example.kafkatest.requests.ProductMessage
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-class ProductService @Autowired constructor(private val productProducer: ProductProducer, private val productRepository: ProductRepository) {
+class ProductService(private val productProducer: ProductProducer, private val productRepository: ProductRepository) {
 
     private val log = LoggerFactory.getLogger(ProductService::class.java)
 

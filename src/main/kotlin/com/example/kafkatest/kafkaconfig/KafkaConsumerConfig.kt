@@ -16,7 +16,7 @@ import org.springframework.kafka.support.serializer.JsonDeserializer
 @Configuration
 class KafkaConsumerConfig {
 
-    @Value("\${kafka.bootstrapAddress}")
+    @Value("\${spring.kafka.bootstrap-servers}")
     private lateinit var bootstrapAddress: String
 
     private val log = LoggerFactory.getLogger(KafkaConsumerConfig::class.java)

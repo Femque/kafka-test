@@ -10,7 +10,7 @@ import org.springframework.kafka.core.KafkaAdmin
 @Configuration
 class KafkaTopicConfig {
 
-    @Value("\${kafka.bootstrapAddress}")
+    @Value("\${spring.kafka.bootstrap-servers}")
     private lateinit var bootstrapAddress: String
 
     @Bean
