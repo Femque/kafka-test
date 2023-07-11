@@ -6,21 +6,19 @@ import com.example.kafkatest.services.ProductService
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("api")
-@Service
 class DemoController(private val productService: ProductService) {
 
     private val log = LoggerFactory.getLogger(DemoController::class.java)
 
     @GetMapping("/products")
-    fun sayHello(@RequestParam(value = "myName", defaultValue = "World") name: String): String {
+    fun getAllProducts(): ResponseEntity<List<Product>> = ResponseEntity.ok(productService.getAllProducts())
 
-        return String.format("Hello $name!")
-    }
+    @GetMapping("/product/{id}")
+    fun getProductbyId(@PathVariable id: String): ResponseEntity<Product> = ResponseEntity.ok(productService.getProductById(id))
 
     @PostMapping("/product")
     fun addProduct(@RequestBody product: Product): ResponseEntity<Any> {
@@ -34,8 +32,9 @@ class DemoController(private val productService: ProductService) {
     @DeleteMapping("/product/{id}")
     fun deleteProduct(@PathVariable id: String) {
         log.info("[DemoController]: delete product id = $id")
-        val p = Product(id, "", 0.0)
-        productService.sendMessage(ProductMessage(p, "delete"))
+        val product = productService.getProductById(id)
 
+        productService.sendMessage(ProductMessage(product, "delete"))
+        productService.deleteProduct(id)
     }
 }

@@ -21,4 +21,16 @@ class ProductService @Autowired constructor(private val productProducer: Product
     fun saveProduct(product: Product): Product {
         return productRepository.save(product)
     }
+
+    fun getAllProducts(): List<Product> {
+        return productRepository.findAll()
+    }
+
+    fun deleteProduct(id: String) {
+        productRepository.deleteById(id)
+    }
+
+    fun getProductById(id: String): Product {
+        return productRepository.findById(id).orElse(null)
+    }
 }
